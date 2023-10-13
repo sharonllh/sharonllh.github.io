@@ -1,0 +1,53 @@
+# Site settings
+title: Sharon Lu
+subtitle: [为者常成，行者常至]
+keywords: sharonllh
+description: 行者常至
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://sharonllh.github.io/" # 你的域名
+page_no_title: 无题 # 文章无标题时默认显示内容
+beian: # "备案号"
+author: Sharon Lu
+email: sharonllh@163.com
+
+# Build settings
+permalink: /:year/:month/:day/:title/
+exclude: ["README.md"]
+plugins:
+  - jekyll-paginate
+  - jemoji
+
+
+# always get github's error email saying redcarpet is not supported,
+# so change it to kramdown.
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+
+
+# Paginate settings
+paginate: 8 # 分页大小
+paginate_path: "page/:num/"
+
+
+# Menu settings
+menu:
+  - page: 首页
+    directory: .
+    icon: icon-home
+  - page: 归档
+    directory: archives/
+    icon: icon-archive
+  - page: 标签
+    directory: tags/
+    icon: icon-tags
+  - page: 关于
+    directory: about/
+    icon: icon-about
+
+
+# Code hub settings
+codehub: # 代码仓库
+  - title: Github
+    url: https://github.com/sharonllh
