@@ -10,20 +10,23 @@ layout: base
                 <i class="icon-post-date">{{ page.date | date: "%b %-d, %Y" }}</i>
             </time>
             {% if page.categories.size > 0 %} |
-            <span class="post-category">
-            <i class="icon-post-category">
-            {% for page_category in page.categories %}
-                <a href="{{ site.baseurl }}/category/#{{ page_category }}">{{ page_category }}</a>
-            {% endfor %}
-            </i>
-        </span> {% endif %} {% if page.tags.size > 0 %} |
-            <span class="post-tag">
-            <i class="icon-post-tag">
-            {% for page_tag in page.tags %}
-                <a href="{{ site.baseurl }}/tags/#{{ page_tag }}">{{ page_tag }}</a>
-            {% endfor %}
-            </i>
-        </span>{% endif %}
+                <span class="post-category">
+                <i class="icon-post-category">
+                {% for page_category in page.categories %}
+                    <a href="{{ site.baseurl }}/category/#{{ page_category }}">{{ page_category }}</a>
+                {% endfor %}
+                </i>
+                </span> 
+            {% endif %}
+            {% if page.tags.size > 0 %} |
+                <span class="post-tag">
+                <i class="icon-post-tag">
+                {% for page_tag in page.tags -%}
+                    <a href="{{ site.baseurl }}/tags/#{{ page_tag }}">{{ page_tag }}{% unless forloop.last %}, {% endunless -%}</a>
+                {% endfor %}
+                </i>
+                </span>
+            {% endif %}
         </p>
 
     </header>
@@ -37,7 +40,8 @@ layout: base
         {% if page.previous %}
         <a href="{{ page.previous.url | prepend: site.baseurl }}" class="pre"><i class="icon-post-pre"> {{
             page.previous.title }}</i></a>
-        {% endif %} {% if page.next %}
+        {% endif %}
+        {% if page.next %}
         <a href="{{ page.next.url | prepend: site.baseur }}" class="next">{{ page.next.title }} <i
                 class="icon-post-next"></i></a>
         {% endif %}
