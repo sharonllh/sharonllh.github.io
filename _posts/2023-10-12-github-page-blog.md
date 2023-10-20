@@ -18,7 +18,7 @@ categories: [GitHub]
 
 4. 等待一会儿，页面上会出现`Your site is live at https://{你的Github用户名}.github.io`的提示，表示你的博客已经部署好了，地址就是`https://{你的Github用户名}.github.io`。
 ![SiteReady](/assets/img/GithubPageBlog_SiteReady.png)
-    >如果一直没出现这个提示的话，尝试随便push一个change到master。
+    >如果一直没出现这个提示的话，尝试随便push一个change到main branch。
 
 怎么样，是不是很简单呢？当然啦，这个博客不一定完全符合你的要求，也许你想要进行一些修改和定制，接着往下看吧。
 
@@ -52,4 +52,4 @@ categories: [GitHub]
 ---
 ```
 
-每次新写一篇文章后，只需要把这个change push到master branch上，Github那边就会触发一次部署，你的博客就能自动更新了。Enjoy blogging!
+每次新写一篇文章后，只需要把这个change push到main branch上，Github那边就会触发一次部署，你的博客就能自动更新了。Enjoy blogging!
