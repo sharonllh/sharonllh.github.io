@@ -51,32 +51,32 @@ Console.WriteLine("(ElapsedTime={0}): task.Result={1}", sw.ElapsedMilliseconds, 
 
 `TaskCompletionSource`的源码比较简单，主要功能是通过调用`Task`的internal方法实现的。
 
-#### 1. 创建TaskCompletionSource时，内部会创建一个啥都不干的Task
+1. 创建TaskCompletionSource时，内部会创建一个啥都不干的Task
 
-```cs
-private readonly Task<TResult> _task;
+    ```cs
+    private readonly Task<TResult> _task;
 
-public TaskCompletionSource() 
-    => _task = new Task<TResult>();
-```
+    public TaskCompletionSource() 
+        => _task = new Task<TResult>();
+    ```
 
-#### 2. 可以通过属性获取该内部Task
+2. 可以通过属性获取该内部Task
 
-```cs
-public Task<TResult> Task => _task;
-```
+    ```cs
+    public Task<TResult> Task => _task;
+    ```
 
-#### 3. 设置内部Task的完成状态是通过调用Task的方法实现的
+3. 设置内部Task的完成状态是通过调用Task的方法实现的
 
-```cs
-public bool TrySetResult(TResult result)
-{
-    bool rval = _task.TrySetResult(result);
-    if (!rval)
+    ```cs
+    public bool TrySetResult(TResult result)
     {
-        _task.SpinUntilCompleted();
-    }
+        bool rval = _task.TrySetResult(result);
+        if (!rval)
+        {
+            _task.SpinUntilCompleted();
+        }
 
-    return rval;
-}
-```
+        return rval;
+    }
+    ```

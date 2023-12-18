@@ -24,6 +24,7 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM
+  theme: github
 
 
 # Paginate settings
