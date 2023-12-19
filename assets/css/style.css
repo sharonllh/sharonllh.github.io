@@ -30,7 +30,7 @@ body {
 }
 
 .content_container {
-    padding-right: 50px;
+    padding-right: 40px;
     padding-top: 20px;
 }
 
@@ -270,16 +270,6 @@ a:focus {
     margin: 0 0 1.234em;
 }
 
-/*
-.post .post-content p code {
-    display: inline;
-    margin: 0 5px;
-    padding: 1px 5px;
-    border: 1px solid #ccc;
-    background: #eee;
-}
-*/
-
 .post .post-content p a {
     color: #01579f;
     padding-bottom: 2px;
@@ -321,15 +311,6 @@ a:focus {
 .post .post-content ul ul, .post .post-content ol ul {
     margin: 0;
 }
-
-/*
-.post .post-content ul code, .post .post-content ol code {
-    display: inline;
-    margin: 0 5px;
-    padding: 1px 5px;
-    border: 1px solid #ccc;
-    background: #eee;
-}*/
 
 .post .post-content ul a, .post .post-content ol a {
     color: #01579f;
@@ -518,14 +499,14 @@ a:focus {
 blockquote {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: #E6E6E6;
-    margin: 1.25em 0 1.25em 0.2em;
-    padding-left: 1.75em;
-    border-left: #A8A8A8 0.4em solid;
+    background: #efe1cc8a;
+    margin: 0.8em 0 0.8em 0.2em;
+    padding-left: 0.8em;
+    border-left: #da95145e 0.6em solid;
 }
 
 blockquote p {
-    padding: 0.8em 0;
+    padding: 0.5em;
     font-style: italic;
 }
 
@@ -535,14 +516,14 @@ strong, b, em {
 
 code, pre {
     font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-    font-size: inherit;
+    font-size: small;
 }
 
 code {
-    padding: 0 3px;
+    /*padding: 0 3px;*/
     margin: 0 2px;
-    font-size: 95%;
-    background-color: #e7e3de;
+    /*font-size: 95%;*/
+    background-color: rgba(0, 0, 0, 0.05);
     border: none;
     /*border: 1px solid #e1e1e8;*/
     /*white-space: nowrap;*/
@@ -554,9 +535,9 @@ pre {
     padding: 9.5px;
     margin-bottom: 15px;
     line-height: 20px;
-    word-break: break-all;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    /*word-break: break-all;*/
+    /*word-wrap: break-word;*/
+    /*white-space: pre-wrap;*/
     background-color: #EBEBEB;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;

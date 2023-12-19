@@ -1,5 +1,5 @@
 <div class="widget post-toc hide">
-    <div class="widget-title"><i class="icon-post-toc"> 文章目录</i></div><ul></ul>
+    <div class="widget-title"><i class="icon-post-toc"> 文章目录</i></div>
 </div>
 
 <script type="text/javascript">
@@ -68,7 +68,7 @@ function TOCize(toc, content, matchHeightTo) {
 
     var hs = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
     var cul = null, plevel = 1;
-    var uls = [make('ul')];
+    var uls = [make('ol')];
     for (var i=0;i<hs.length;i++) {
         var level = +hs[i].tagName.substr(1);
         var hi = hs[i];

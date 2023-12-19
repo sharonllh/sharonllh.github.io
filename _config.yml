@@ -26,7 +26,7 @@ kramdown:
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     css_class: highlight
-    default_lang: console
+    default_lang: plaintext
 
 
 # Paginate settings
