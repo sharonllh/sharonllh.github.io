@@ -16,17 +16,17 @@ exclude: ["README.md"]
 plugins:
   - jekyll-paginate
   - jemoji
-  - rouge
 
 
 # always get github's error email saying redcarpet is not supported,
 # so change it to kramdown.
 markdown: kramdown
-highlighter: rouge
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-  theme: github
+  syntax_highlighter_opts:
+    css_class: highlight
+    default_lang: console
 
 
 # Paginate settings
