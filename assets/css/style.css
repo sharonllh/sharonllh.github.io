@@ -162,14 +162,14 @@ a:focus {
     padding: 5px;
 }
 
-#sidebar .widget ul {
+#sidebar .widget ul,  #sidebar .widget ol {
     color: #6E7173;
     list-style-type: disc;
     margin-left: 18px;
     padding: 0;
 }
 
-#sidebar .widget ul li {
+#sidebar .widget ul li, #sidebar .widget ol li {
     margin: 5px 0;
     line-height: 1.5;
 }
