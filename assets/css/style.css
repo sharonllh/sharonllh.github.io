@@ -162,9 +162,16 @@ a:focus {
     padding: 5px;
 }
 
-#sidebar .widget ul,  #sidebar .widget ol {
+#sidebar .widget ul {
     color: #6E7173;
-    list-style-type: disc;
+    list-style-type: circle;
+    margin-left: 18px;
+    padding: 0;
+}
+
+#sidebar .widget ol {
+    color: #6E7173;
+    list-style-type: decimal;
     margin-left: 18px;
     padding: 0;
 }
