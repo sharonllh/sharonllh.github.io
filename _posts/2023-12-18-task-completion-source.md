@@ -56,8 +56,7 @@ Console.WriteLine("(ElapsedTime={0}): task.Result={1}", sw.ElapsedMilliseconds, 
     ```cs
     private readonly Task<TResult> _task;
 
-    public TaskCompletionSource() 
-        => _task = new Task<TResult>();
+    public TaskCompletionSource() => _task = new Task<TResult>();
     ```
 
 2. 可以通过属性获取该内部Task
