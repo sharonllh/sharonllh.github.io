@@ -23,12 +23,10 @@ categories: [.NET]
 
 ```cs
 // Parameter pattern. For example, "{ItemId}" and "{CompanyId}" in "IID:{ItemId}@{CompanyId}".
-private static readonly Regex ParameterPattern
-    = new Regex("{([a-z_A-Z0-9]*)}", RegexOptions.Compiled);
+private static readonly Regex ParameterPattern = new Regex("{([a-z_A-Z0-9]*)}", RegexOptions.Compiled);
 
 // Cache for regex match results.
-private static readonly ConcurrentDictionary<string, MatchCollection> TemplateToRegexMatchResultMapping
-    = new ConcurrentDictionary<string, MatchCollection>(StringComparer.OrdinalIgnoreCase);
+private static readonly ConcurrentDictionary<string, MatchCollection> TemplateToRegexMatchResultMapping = new ConcurrentDictionary<string, MatchCollection>(StringComparer.OrdinalIgnoreCase);
 
 public static string ParseItemIdentity(HttpContext httpContext, string template)
 {
@@ -40,6 +38,7 @@ public static string ParseItemIdentity(HttpContext httpContext, string template)
     // Then replace the parameters with the values in httpContext
     StringBuilder stringBuilder = new StringBuilder(
         GetStringBeforeFirstParameter(template, allMatches[0]));
+        
     for (int i = 0; i < allMatches.Count; i++)
     {
         stringBuilder.Append(GetParameterValue(allMatches[i], httpContext));
