@@ -514,7 +514,8 @@ blockquote {
 
 blockquote p {
     padding: 0.5em;
-    font-style: italic;
+    /*font-style: italic;*/
+    font-family: "Times New Roman";
 }
 
 strong, b, em {
