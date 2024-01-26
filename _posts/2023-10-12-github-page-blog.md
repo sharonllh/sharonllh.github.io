@@ -8,8 +8,10 @@ categories: [GitHub]
 
 如果你想要一个方便维护、无广告、支持markdown书写的个人博客，用Github Page和Jekyll来搭建是不错的选择。[Github Page](https://docs.github.com/en/pages/quickstart)是通过Github托管的网页，可以用来创建个人博客或开源项目的展示页面。[Jekyll](https://jekyllrb.com/)是一个静态站点生成器，可以很方便地根据html和markdown文件组织成一个美观的网站。本文介绍一种快速简单的搭建方法。
 
+## 搭建站点
+
 1. 在[Jekyll主题网站](http://jekyllthemes.org/themes/mundana-jekyll-theme/)或者Github上找一个合眼缘的博客项目，然后fork一下。
-    > 在Github上搜索关键词`github blog`，查看那些repository名为`xxx.github.io`的，打开`https://xxx.github.io`就能看到对应的博客。
+    - 在Github上搜索关键词`github blog`，查看那些repository名为`xxx.github.io`的，打开`https://xxx.github.io`就能看到对应的博客。
 
 2. fork的时候repository name必须是`{你的Github用户名}.github.io`，并且这个repository必须是public的。
 
@@ -18,9 +20,11 @@ categories: [GitHub]
 
 4. 等待一会儿，页面上会出现`Your site is live at https://{你的Github用户名}.github.io`的提示，表示你的博客已经部署好了，地址就是`https://{你的Github用户名}.github.io`。
 ![SiteReady](/assets/img/GithubPageBlog_SiteReady.png)
-    >如果一直没出现这个提示的话，尝试随便push一个change到main branch。
+    - 如果一直没出现这个提示的话，尝试随便push一个change到main branch。
 
 怎么样，是不是很简单呢？当然啦，这个博客不一定完全符合你的要求，也许你想要进行一些修改和定制，接着往下看吧。
+
+## 修改样式
 
 {:start="5"}
 5. 参考[Jekyll安装文档]((https://jekyllrb.com/docs/installation/))，在本地安装Ruby和Jekyll。
@@ -39,6 +43,8 @@ categories: [GitHub]
     >运行`jekyll server`时也许会报一些缺少plugin的错误，运行`gem install xxx`安装就行。
 
 7. 接下来就随意修改，让博客变成你满意的样子吧。这里我就不多赘述了，相信聪明的你可以自己搞定的！
+
+## 撰写博客
 
 所有的文章都在`_posts`目录下，文件名是有格式要求的，必须是`YYYY-MM-DD-TITLE.md`。文章的开头需要添加front matter，如下所示，更多内容可以参考[Jekyll Posts](https://jekyllrb.com/docs/posts/)。
 

@@ -506,10 +506,10 @@ a:focus {
 blockquote {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: #efe1cc8a;
+    background: #eee;
     margin: 0.8em 0 0.8em 0.2em;
     padding-left: 0.8em;
-    border-left: #da95145e 0.6em solid;
+    border-left: #cbcbcb 0.3em solid;
 }
 
 blockquote p {
@@ -528,7 +528,7 @@ code, pre {
 
 code {
     /*padding: 0 3px;*/
-    margin: 0 2px;
+    /*margin: 0 2px;*/
     /*font-size: 95%;*/
     background-color: rgba(0, 0, 0, 0.05);
     border: none;
@@ -544,7 +544,7 @@ pre {
     line-height: 20px;
     /*word-break: break-all;*/
     /*word-wrap: break-word;*/
-    white-space: pre-wrap;
+    white-space: pre;
     background-color: #EBEBEB;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
@@ -554,7 +554,7 @@ pre code {
     padding: 0;
     margin: 0;
     color: inherit;
-    white-space: pre-wrap;
+    /*white-space: pre-wrap;*/
     background-color: transparent;
     border: 0;
 }
