@@ -21,3 +21,11 @@ git config --global user.email "your.email@example.com"
 git config user.name
 git config user.email
 ```
+
+### 复制一个文件并修改后，如何对比两个文件
+
+```bash
+git diff --no-index <old_file_path> <new_file_path>
+```
+
+使用`--word-diff`可以按单词变化高亮，而不是按行高亮。
