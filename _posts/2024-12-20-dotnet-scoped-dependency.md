@@ -17,11 +17,9 @@ Singleton和Transient都比较好理解，Scoped的概念却比较含糊。本�
 
 下面是官方文档[.NET dependency injection](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#scoped)的解释：
 
-```
-For web applications, a scoped lifetime indicates that services are created once per client request (connection). Register scoped services with AddScoped.
-
-In apps that process requests, scoped services are disposed at the end of the request.
-```
+>For web applications, a scoped lifetime indicates that services are created once per client request (connection). Register scoped services with AddScoped.
+>
+>In apps that process requests, scoped services are disposed at the end of the request.
 
 可以看到，官方文档并没有给出一般化的解释，而是从Web App的角度去描述的——Scoped Dependency是request级别的，对每个request只创建一次，在request完成后被dispose。
 
