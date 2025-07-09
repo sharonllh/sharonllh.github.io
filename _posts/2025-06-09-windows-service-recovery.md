@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 如何配置Windows Service的崩溃恢复策略
+title: 如何配置Windows Service的崩溃恢复策略？
 date: 2025-06-09 +0800
 tags: [Windows, 崩溃恢复]
 categories: [Windows系统]
