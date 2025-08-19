@@ -90,13 +90,47 @@ FlatBuffers的schema文件以`.fbs`结尾，可以同时定义多个schema文件
 
 #### 枚举类型
 
-例子：
+普通的枚举类型：
 ```
-enum Color : byte {
-    Red = 0,
-    Green = 1,
-    Blu = 2
+enum Color : int {
+    None = 0,
+    Red = 1,
+    Green = 2,
+    Blue = 3
 }
+```
+
+生成的C#代码为：
+```cs
+public enum Color : int
+{
+    None = 0,
+    Red = 1,
+    Green = 2,
+    Blue = 3,
+};
+```
+
+`[flags]`的枚举类型：
+```
+enum Color : uint (bit_flags) {
+  None = 0,
+  Red = 1,
+  Green = 2,
+  Blue = 3
+}
+```
+
+生成的C#代码为：
+```cs
+[System.FlagsAttribute]
+public enum Color : uint
+{
+    None = 1,
+    Red = 2,
+    Green = 4,
+    Blue = 8,
+};
 ```
 
 注意点：
@@ -104,7 +138,13 @@ enum Color : byte {
     ```
     error: must specify the underlying integer type for this enum (e.g. ': short', which was the default).
     ```
-- 不支持C#中的flags enum
+- 使用`bit_flags`属性时，底层的整数类型最好是无符号的，否则编译时会报warning：
+    ```
+    warning: underlying type of bit_flags enum must be unsigned
+    ```
+- 使用`bit_flags`属性时，如果schema中给一个枚举值赋值为整数`n`，那么在C#代码中，该枚举值的整数为`2^n`。
+    - 如果不给枚举值赋值，C#代码中会默认使用`1, 2, 4, 8, ...`。
+    - 无法让C#代码中的枚举值从`0`开始。
 
 #### struct类型
 
