@@ -2,7 +2,7 @@
 layout: post
 title: .NET中的Sync-Over-Async问题是什么？
 date: 2026-03-16 +0800
-tags: [.NET, 线程]
+tags: [.NET, 线程，异步]
 categories: [.NET]
 ---
 
