@@ -69,8 +69,11 @@ Done.
 可以看出，在纯async调用中，异步操作不会阻塞任何线程。
 - Caller thread在调用完异步方法后，会被归还到thread pool中。
 - 异步操作执行时，不会阻塞任何线程。
-- 异步操作完成后，操作系统会发出信号，然后由thread pool中的thread来处理后面的工作。
-- 在`Main`函数和`DoAsyncWork`函数中执行后续工作的threadpool thread不一定是同一个，但是一般会是同一个。
+- 异步操作完成后，操作系统会发出信号，然后由thread pool中的thread来处理`DoAsyncWork`函数中的后续工作，包括：
+    - Run continuation: 运行`await`后面的代码，包括`return`。
+    - Complete Task: 设置`Task`的结果和状态，并唤醒等待的线程。
+- 继续由thread pool中的thread来处理`Main`函数中的后续工作。
+    - 在`Main`函数和`DoAsyncWork`函数中执行后续工作的threadpool thread不一定是同一个，但是一般会是同一个。
 
 ## Sync-Over-Async的线程行为
 
@@ -133,16 +136,16 @@ Done.
 可以看出，在sync-over-async调用中，异步操作会阻塞线程。
 - Caller thread在调用完异步方法后，会被阻塞，等待异步调用的结果。
 - 异步操作执行时，Caller thread一直被阻塞。
-- 异步操作完成后，操作系统会发出信号，然后由thread pool中的thread来处理`DoAsyncWork`函数中后面的工作，complete Task（设置Task的结果和完成状态）。
+- 异步操作完成后，操作系统会发出信号，然后由thread pool中的thread来处理`DoAsyncWork`函数中的后续操作（包括Run continuation和Complete Task）。
 - 返回`Main`函数后，Caller thread继续处理异步调用后面的工作。
 
 ## Sync-Over-Async导致的Thread Starvation
 
 假设服务器端的线程池中共有1000个线程，同时有1000个请求过来了。
 
-对于纯async调用，1000个异步操作进行时，0个线程在等待，线程池中的1000个线程可以继续处理新请求或者complete Task。
+对于纯async调用，1000个异步操作进行时，0个线程在等待，线程池中的1000个线程可以继续处理新请求或者Run continuation & Complete Task。
 
-对于sync-over-async调用，1000个异步操作进行时，1000个线程被阻塞，线程池中没有线程可以处理新请求或者complete Task。如果没有线程去complete Task，这1000个线程就会一直等待。线程池耗尽后，会以非常缓慢的速度创建新的线程（每秒1~2个线程），因此服务器并不会陷入死锁状态，只是throughput会变得非常低。这就是所谓的thread starvation。
+对于sync-over-async调用，1000个异步操作进行时，1000个线程被阻塞，线程池中没有线程可以处理新请求或者Run continuation & Complete Task。如果没有线程去Run continuation & Complete Task，这1000个线程就会一直等待。线程池耗尽后，会以非常缓慢的速度创建新的线程（每秒1~2个线程），因此服务器并不会彻底陷入死锁状态，只是throughput会变得非常低。这就是所谓的thread starvation。
 
 下面的例子很好地展示了什么是thread starvation：
 ```cs
@@ -221,9 +224,21 @@ Setup: thread pool limited to 4 threads, launching 4 sync-over-async work items 
 Done.
 ```
 
-可以看到，明明异步操作1秒就完成了，但是线程池中的4个线程却一直被阻塞，就是因为没有多余的线程去complete Task。
+可以看到，明明异步操作1秒就完成了，但是线程池中的4个线程却一直被阻塞，就是因为没有多余的线程去Run continuation & Complete Task。
+
+需要注意的是，这个例子限制了线程池的最大线程数为4，因此永远不会生成新线程。在实际工作中，最大线程数通常设置的比较大，还是会生成新线程的，只是生成的速度非常慢。
 
 ## Sync-Over-Async导致的死锁
 
-在.NET Framework中，sync-over-async甚至会导致死锁。
+在一些比较老的.NET Framework中，sync-over-async甚至会导致死锁。
 
+在这些老框架中，有一个`SynchronizationContext`的概念，会导致只能由特定的线程去Run continuation & Complete Task。如果这个特定的线程恰好是那个等待Task的线程，就会导致死锁。
+
+为了解决这个问题，通常会用`ConfigureAwait(false)`来告诉runtime，让线程池中的线程来Run continuation & Complete Task。例如：
+```cs
+await Task.Delay(1000).ConfigureAwait(false); 
+```
+
+需要注意的是，在一个异步函数中使用`ConfigureAwait(false)`，只会影响这个函数的Run continuation & Complete Task由哪个线程来执行。为了彻底避免死锁，我们需要在整个调用链的所有异步函数中都使用`ConfigureAwait(false)`。
+
+这个问题就不过多展开了，毕竟在新的.NET Core中，已经没有`SynchronizationContext`的概念了，也就不会出现因此而导致的死锁问题了。
