@@ -1,6 +1,6 @@
 ---
 layout: post
-title: .NET中的sync-over-async问题是什么？
+title: .NET中的Sync-Over-Async问题是什么？
 date: 2026-03-16 +0800
 tags: [.NET, 线程]
 categories: [.NET]
@@ -67,13 +67,13 @@ Done.
 ```
 
 可以看出，在纯async调用中，异步操作不会阻塞任何线程。
-- Caller thread在调用完异步方法后，会被归还到thread pool中。
+- Caller thread在调用完异步方法后，会被归还到线程池中。
 - 异步操作执行时，不会阻塞任何线程。
-- 异步操作完成后，操作系统会发出信号，然后由thread pool中的thread来处理`DoAsyncWork`函数中的后续工作，包括：
+- 异步操作完成后，操作系统会发出信号，然后由线程池中的线程来处理`DoAsyncWork`函数中的后续工作，包括：
     - Run continuation: 运行`await`后面的代码，包括`return`。
     - Complete Task: 设置`Task`的结果和状态，并唤醒等待的线程。
-- 继续由thread pool中的thread来处理`Main`函数中的后续工作。
-    - 在`Main`函数和`DoAsyncWork`函数中执行后续工作的threadpool thread不一定是同一个，但是一般会是同一个。
+- 继续由线程池中的线程来处理`Main`函数中的后续工作。
+    - 在`Main`函数和`DoAsyncWork`函数中执行后续工作的线程不一定是同一个，但是一般会是同一个。
 
 ## Sync-Over-Async的线程行为
 
@@ -136,7 +136,7 @@ Done.
 可以看出，在sync-over-async调用中，异步操作会阻塞线程。
 - Caller thread在调用完异步方法后，会被阻塞，等待异步调用的结果。
 - 异步操作执行时，Caller thread一直被阻塞。
-- 异步操作完成后，操作系统会发出信号，然后由thread pool中的thread来处理`DoAsyncWork`函数中的后续操作（包括Run continuation和Complete Task）。
+- 异步操作完成后，操作系统会发出信号，然后由线程池中的线程来处理`DoAsyncWork`函数中的后续操作（包括Run continuation和Complete Task）。
 - 返回`Main`函数后，Caller thread继续处理异步调用后面的工作。
 
 ## Sync-Over-Async导致的Thread Starvation
